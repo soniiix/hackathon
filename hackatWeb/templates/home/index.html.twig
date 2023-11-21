@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hackat'Agence - Accueil
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+        <br>
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Accueil</h1>
+        </div>
+		<p style="font-size : 20px">
+			Bienvenue sur <strong>Hackat'Agence</strong>, votre plateforme dédiée à l'innovation et à la collaboration ! Que vous soyez un développeur chevronné, un designer créatif ou un passionné de technologie, notre site de Hackathon est l'endroit idéal pour relever des défis passionnants, repousser vos limites et créer quelque chose d'extraordinaire.<br><br>
+			Participez à des événements stimulants, formez des équipes dynamiques et explorez de nouvelles idées pour résoudre des problèmes concrets. Avec des défis variés et des opportunités de réseautage exceptionnelles, <strong>Hackat'Agence</strong> vous offre la plateforme idéale pour transformer vos idées en réalité. Rejoignez-nous et ensemble, créons l'avenir de la technologie !
+		</p>
+		<br>
+		<img class="w-100 rounded" src="{{ asset('images/hackathon.jpg') }}" alt="Hackathon"/>
+	</div>
+{% endblock %}
