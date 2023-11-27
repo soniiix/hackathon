@@ -14,7 +14,7 @@ class HackathonController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Hackathon::class);
-        $lesHackathons = $repository->findBy([], ['dateDebut' => 'ASC']);
+        $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
 
         return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons]);
     }
