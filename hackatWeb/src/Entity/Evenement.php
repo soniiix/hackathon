@@ -7,6 +7,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
+#[ORM\Table(name:'evenement')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ ORM\DiscriminatorMap(['nbParticipants' => Atelier::class, 'theme' => Conference::class])]
 class Evenement
 {
     #[ORM\Id]

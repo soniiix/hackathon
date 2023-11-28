@@ -22,9 +22,10 @@ class InscriptionHackathon
     private ?Participant $leParticipant = null;
 
     #[ORM\ManyToOne(inversedBy: 'lesInscriptions')]
-    #[ORM\JoinColumn(name: "idParticipant", referencedColumnName :"id", nullable: false)]
+    #[ORM\JoinColumn(name: "idHackathon", referencedColumnName :"id", nullable: false)]
     private ?Hackathon $leHackathon = null;
 
+   
     public function getId(): ?int
     {
         return $this->id;

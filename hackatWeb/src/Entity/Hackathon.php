@@ -47,12 +47,18 @@ class Hackathon
     #[ORM\Column(type: Types::TIME_MUTABLE, name: 'heureFin')]
     private ?\DateTimeInterface $heureFin = null;
 
+   
+
+    #[ORM\ManyToMany(targetEntity: Evenement::class)]
+    private Collection $lesEvenements;
+
     #[ORM\OneToMany(mappedBy: 'leHackathon', targetEntity: InscriptionHackathon::class)]
     private Collection $lesInscriptions;
 
     public function __construct()
     {
         $this->lesInscriptions = new ArrayCollection();
+        $this->lesEvenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,6 +212,30 @@ class Hackathon
                 $lesInscription->setLeHackathon(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evenement>
+     */
+    public function getLesEvenements(): Collection
+    {
+        return $this->lesEvenements;
+    }
+
+    public function addLesEvenement(Evenement $lesEvenement): static
+    {
+        if (!$this->lesEvenements->contains($lesEvenement)) {
+            $this->lesEvenements->add($lesEvenement);
+        }
+
+        return $this;
+    }
+
+    public function removeLesEvenement(Evenement $lesEvenement): static
+    {
+        $this->lesEvenements->removeElement($lesEvenement);
 
         return $this;
     }
