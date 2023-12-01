@@ -15,21 +15,36 @@
 
   <!-- CONTENU DE LA PAGE -->
 
-  <ion-card>
+  <ion-content [fullscreen]="true">
+
+    <ion-list>    
+      <ion-item *ngFor="let item of hackathons" detail="true">
+        <ion-avatar slot="start">
+          <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <p>{{item.titre}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>
+
+     <!-- <ion-card *ngFor="let item of hackathons">
     <ion-card-header>
-      <ion-card-title>Titre du hackathon</ion-card-title>
-      <ion-card-subtitle>Du [date début] au [date fin]</ion-card-subtitle>
+      <ion-card-title>{{item.titre}}</ion-card-title>
+      <ion-card-subtitle>Du {{item.dateFin}} au {{item.dateFin}}</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>
       <ion-list>
-        <ion-item><strong>Adresse :</strong></ion-item>
-        <ion-item><strong>Date limite d'incription :</strong></ion-item>
-        <ion-item><strong>Nombre de places restantes : </strong></ion-item>
+        <ion-item><strong>Adresse :&#xA0;</strong>{{item.rue + ' ' + item.codePostal + ' ' + item.ville}}</ion-item>
+        <ion-item><strong>Date limite d'incription :&#xA0;</strong>{{item.dateLimiteInscription}}</ion-item>
+        <ion-item><strong>Nombre de places restantes :&#xA0;</strong>{{item.nbPlacesMax}}</ion-item>
       </ion-list>
 
       <ion-button>Voir les ateliers</ion-button>
     </ion-card-content>
   </ion-card>
 
-</ion-content>
+-->

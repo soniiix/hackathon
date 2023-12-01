@@ -1,0 +1,99 @@
+[
+{"type":"header","version":"5.2.1deb1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"qcouzinet_hackathon"},
+{"type":"table","name":"doctrine_migration_versions","database":"qcouzinet_hackathon","data":
+[
+{"version":"DoctrineMigrations\\Version20231128155510","executed_at":"2023-11-28 15:57:19","execution_time":"96"}
+]
+}
+,{"type":"table","name":"evenement","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","libelle":"Atelier sur le leadership","date":"2023-12-08","heure":"16:44:00","duree":"2","salle":"B009","type":"atelier","nbParticipants":"25","theme":null,"idIntervenant":null},
+{"id":"2","libelle":"Blockchain : Applications et implications futures","date":"2023-12-08","heure":"14:47:00","duree":"4","salle":"G934","type":"conference","nbParticipants":null,"theme":"Cryptomonnaies","idIntervenant":"2"},
+{"id":"3","libelle":"Sécurité informatique : Pratiques avancées","date":"2023-12-16","heure":"15:57:00","duree":"2","salle":"C890","type":"atelier","nbParticipants":"33","theme":null,"idIntervenant":null},
+{"id":"4","libelle":"Conférence sur l'IA","date":"2023-12-08","heure":"14:08:00","duree":"2","salle":"M260","type":"conference","nbParticipants":null,"theme":"Intelligence artificielle","idIntervenant":"3"},
+{"id":"5","libelle":"Atelier de design thinking pour les développeurs","date":"2023-12-20","heure":"14:03:00","duree":"3","salle":"E802","type":"atelier","nbParticipants":"10","theme":null,"idIntervenant":null}
+]
+}
+,{"type":"table","name":"hackathon","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","nbPlacesMax":"50","dateLimiteInscription":"2023-11-30 00:00:00","titre":"ByteBurst Challenge: Explosez les octets, créez le futur","ville":"Marseille","codePostal":"13000","rue":"3 Impasse Fedeli","dateDebut":"2023-12-01","dateFin":"2023-12-03","heureDebut":"09:00:00","heureFin":"17:00:00"},
+{"id":"2","nbPlacesMax":"30","dateLimiteInscription":"2023-11-25 00:00:00","titre":"InnoHacks: Révolutionnez l'innovation","ville":"Paris","codePostal":"75002","rue":"18 Passage du Grand-Cerf","dateDebut":"2023-12-05","dateFin":"2023-12-07","heureDebut":"10:00:00","heureFin":"18:00:00"},
+{"id":"3","nbPlacesMax":"40","dateLimiteInscription":"2023-12-10 00:00:00","titre":"FutureFusion: Fusionnez les idées, forgez le futur du tech","ville":"Reims","codePostal":"51454","rue":"4 Rue Aimee Wilbert","dateDebut":"2023-12-15","dateFin":"2023-12-17","heureDebut":"11:00:00","heureFin":"19:00:00"},
+{"id":"4","nbPlacesMax":"20","dateLimiteInscription":"2023-12-05 00:00:00","titre":"CodeXplosion: Développez l'avenir du code","ville":"Le Mans","codePostal":"72000","rue":"42 Rue du 11 Novembre","dateDebut":"2023-12-08","dateFin":"2023-12-10","heureDebut":"13:00:00","heureFin":"21:00:00"},
+{"id":"5","nbPlacesMax":"60","dateLimiteInscription":"2023-12-20 00:00:00","titre":"QuantumQuest: Explorez les frontières de la programmation quantique","ville":"Lyon","codePostal":"69000","rue":"75 Rue Louis Dansard","dateDebut":"2023-12-25","dateFin":"2023-12-27","heureDebut":"14:00:00","heureFin":"22:00:00"},
+{"id":"6","nbPlacesMax":"25","dateLimiteInscription":"2023-12-15 00:00:00","titre":"CyberForge: Forgez la sécurité numérique de demain","ville":"Les Sables d'Olonne","codePostal":"85100","rue":"69 Rue de l'Enfer","dateDebut":"2023-12-18","dateFin":"2023-12-20","heureDebut":"15:00:00","heureFin":"23:00:00"},
+{"id":"7","nbPlacesMax":"35","dateLimiteInscription":"2023-12-01 00:00:00","titre":"DataDive: Plongez dans le monde des données","ville":"La Roche surYon","codePostal":"85000","rue":"19 Boulevard Branly","dateDebut":"2023-12-05","dateFin":"2023-12-07","heureDebut":"16:00:00","heureFin":"00:00:00"},
+{"id":"8","nbPlacesMax":"45","dateLimiteInscription":"2023-12-08 00:00:00","titre":"CodeCrafters Challenge: Sculptez votre code, modelez l'avenir","ville":"Angers","codePostal":"49000","rue":"23 Rue Robert Bryan","dateDebut":"2023-12-10","dateFin":"2023-12-12","heureDebut":"17:00:00","heureFin":"01:00:00"},
+{"id":"9","nbPlacesMax":"55","dateLimiteInscription":"2023-12-18 00:00:00","titre":"TechTitans Hack: Affrontez les titans de la technologie","ville":"Nantes","codePostal":"44000","rue":"10 Allée Gutenberg","dateDebut":"2023-12-22","dateFin":"2023-12-24","heureDebut":"18:00:00","heureFin":"02:00:00"},
+{"id":"10","nbPlacesMax":"15","dateLimiteInscription":"2023-12-12 00:00:00","titre":"RoboRush: Construisez des bots, dominez l'arène","ville":"Bordeaux","codePostal":"42086","rue":"86 Passage Patrick Henriette","dateDebut":"2023-12-15","dateFin":"2023-12-17","heureDebut":"19:00:00","heureFin":"03:00:00"}
+]
+}
+,{"type":"table","name":"hackathon_evenement","database":"qcouzinet_hackathon","data":
+[
+{"hackathon_id":"1","evenement_id":"5"},
+{"hackathon_id":"2","evenement_id":"3"},
+{"hackathon_id":"3","evenement_id":"1"},
+{"hackathon_id":"4","evenement_id":"1"},
+{"hackathon_id":"5","evenement_id":"5"},
+{"hackathon_id":"6","evenement_id":"3"},
+{"hackathon_id":"7","evenement_id":"3"},
+{"hackathon_id":"8","evenement_id":"5"},
+{"hackathon_id":"9","evenement_id":"2"},
+{"hackathon_id":"10","evenement_id":"4"}
+]
+}
+,{"type":"table","name":"inscription_atelier","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","nom":"Boggish","prenom":"Berne","mail":"bboggish0@toplist.cz","idAtelier":"1"},
+{"id":"2","nom":"Hempel","prenom":"Marcus","mail":"mhempel1@weather.com","idAtelier":"1"},
+{"id":"3","nom":"Stringer","prenom":"Otto","mail":"ostringer2@homestead.com","idAtelier":"2"},
+{"id":"4","nom":"Cardew","prenom":"Mabel","mail":"mcardew3@salon.com","idAtelier":"2"},
+{"id":"5","nom":"Aitcheson","prenom":"Dickie","mail":"daitcheson4@geocities.jp","idAtelier":"3"},
+{"id":"6","nom":"Dreinan","prenom":"Corny","mail":"cdreinan5@toplist.cz","idAtelier":"3"},
+{"id":"7","nom":"Bogie","prenom":"Una","mail":"ubogie6@gizmodo.com","idAtelier":"4"},
+{"id":"8","nom":"Immins","prenom":"Thelma","mail":"timmins7@networksolutions.com","idAtelier":"4"},
+{"id":"9","nom":"Skaife","prenom":"Marius","mail":"mskaife8@chronoengine.com","idAtelier":"5"},
+{"id":"10","nom":"Garbert","prenom":"Gerard","mail":"ggarbert9@msn.com","idAtelier":"5"}
+]
+}
+,{"type":"table","name":"inscription_hackathon","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","date":"2023-11-15","idParticipant":"16","idHackathon":"2"},
+{"id":"2","date":"2023-11-30","idParticipant":"20","idHackathon":"3"},
+{"id":"3","date":"2023-11-01","idParticipant":"8","idHackathon":"7"},
+{"id":"4","date":"2023-11-23","idParticipant":"22","idHackathon":"5"},
+{"id":"5","date":"2023-12-11","idParticipant":"6","idHackathon":"10"}
+]
+}
+,{"type":"table","name":"intervenant","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","nom":"Rentcome","prenom":"Sylvie","idConference":null},
+{"id":"2","nom":"Foker","prenom":"Gérald","idConference":"1"},
+{"id":"3","nom":"Rodman","prenom":"Christophe","idConference":"2"}
+]
+}
+,{"type":"table","name":"messenger_messages","database":"qcouzinet_hackathon","data":
+[
+
+]
+}
+,{"type":"table","name":"participant","database":"qcouzinet_hackathon","data":
+[
+{"id":"1","nom":"Harrigan","prenom":"Inessa","mail":"iharrigan0@furl.net","tel":"995589524","dateNaissance":"2003-12-02","lienPortfolio":"http:\/\/purevolume.com\/vestibulum\/velit\/id\/pretium\/iaculis.json?quis=lectus&turpis=aliquam&eget=sit&elit=amet&sodales=diam&sceler","mdp":"sO1}tUls'WC&?cOP"},
+{"id":"2","nom":"Quarrie","prenom":"Donielle","mail":"dquarrie1@blogger.com","tel":"791957453","dateNaissance":"1995-09-16","lienPortfolio":"https:\/\/ucoz.com\/sapien\/a\/libero.js?congue=curabitur&etiam=gravida&justo=nisi&etiam=at&pretium=nibh&iaculis=in&justo=hac&in=habi","mdp":"nC6!@z<dx+|qQk,c"},
+{"id":"3","nom":"Elfleet","prenom":"Florida","mail":"felfleet2@sfgate.com","tel":"656891255","dateNaissance":"1998-05-06","lienPortfolio":"http:\/\/theguardian.com\/mus\/vivamus.json?lacinia=et&nisi=eros&venenatis=vestibulum&tristique=ac&fusce=est&congue=lacinia&diam=nis","mdp":"pM0{(NwyptTdwYwT"},
+{"id":"4","nom":"Dorow","prenom":"Wallis","mail":"wdorow3@instagram.com","tel":"605092868","dateNaissance":"1992-03-03","lienPortfolio":"http:\/\/google.de\/porttitor\/id\/consequat\/in\/consequat\/ut.png?nulla=dui&eget=maecenas&eros=tristique&elementum=est&pellentesque=et","mdp":"gH3`c2gsMQ,&3gj"},
+{"id":"5","nom":"Vockings","prenom":"Ruy","mail":"rvockings4@upenn.edu","tel":"225100930","dateNaissance":"2004-05-29","lienPortfolio":"https:\/\/boston.com\/phasellus\/id\/sapien.html?turpis=ultrices&nec=aliquet&euismod=maecenas&scelerisque=leo&quam=odio&turpis=condim","mdp":"vB2'9Dwy9=Z"},
+{"id":"6","nom":"Depka","prenom":"Meghann","mail":"mdepka5@163.com","tel":"148685038","dateNaissance":"1991-02-13","lienPortfolio":"http:\/\/theguardian.com\/sapien\/sapien\/non\/mi.json?tempus=quam&semper=sollicitudin&est=vitae&quam=consectetuer&pharetra=eget&magna","mdp":"nY8=70#I"},
+{"id":"7","nom":"O'Hartnett","prenom":"Guido","mail":"gohartnett6@myspace.com","tel":"770702078","dateNaissance":"1997-04-10","lienPortfolio":"https:\/\/stumbleupon.com\/accumsan\/tellus\/nisi\/eu\/orci.html?placerat=orci&praesent=vehicula&blandit=condimentum&nam=curabitur&null","mdp":"kS6\"<VW*$Ezcu"},
+{"id":"8","nom":"Meyrick","prenom":"Dorita","mail":"dmeyrick7@myspace.com","tel":"276188864","dateNaissance":"1992-03-08","lienPortfolio":"http:\/\/newyorker.com\/tristique\/est\/et\/tempus\/semper.html?primis=nulla&in=dapibus&faucibus=dolor&orci=vel&luctus=est&et=donec&ult","mdp":"sC1'KK)cSz"},
+{"id":"16","nom":"Constantinou","prenom":"Atlante","mail":"aconstantinouf@wunderground.com","tel":"15889123","dateNaissance":"1995-04-06","lienPortfolio":"https:\/\/zimbio.com\/fusce\/congue\/diam\/id\/ornare\/imperdiet.html?orci=massa&nullam=volutpat&molestie=convallis&nibh=morbi&in=odio&l","mdp":"jB1|58uJg\"VM,QJ"},
+{"id":"20","nom":"Brandi","prenom":"Gianina","mail":"gbrandij@statcounter.com","tel":"638457140","dateNaissance":"1992-11-12","lienPortfolio":"http:\/\/soup.io\/nulla.html?nisl=ultrices&nunc=posuere&rhoncus=cubilia&dui=curae&vel=donec&sem=pharetra&sed=magna&sagittis=vestibu","mdp":"hQ3\"0\"*Us"},
+{"id":"21","nom":"Schiersch","prenom":"Aleda","mail":"aschierschk@berkeley.edu","tel":"114723746","dateNaissance":"2003-10-06","lienPortfolio":"https:\/\/tmall.com\/sed\/vel\/enim.aspx?in=ipsum&faucibus=integer&orci=a&luctus=nibh&et=in","mdp":"oJ0@mSM)ibmt"},
+{"id":"22","nom":"Sawdy","prenom":"Bernarr","mail":"bsawdyl@biglobe.ne.jp","tel":"705501307","dateNaissance":"1997-07-22","lienPortfolio":"http:\/\/rediff.com\/nulla\/elit\/ac\/nulla\/sed\/vel\/enim.xml?justo=ut&eu=erat&massa=id&donec=mauris&dapibus=vulputate&duis=elementum&a","mdp":"vU7'THzCnHw"},
+{"id":"28","nom":"Chadd","prenom":"Monti","mail":"mchaddr@shinystat.com","tel":"395458013","dateNaissance":"1998-04-14","lienPortfolio":"https:\/\/mozilla.org\/ipsum\/dolor\/sit\/amet\/consectetuer\/adipiscing.html?consequat=nisl&varius=nunc&integer=nisl&ac=duis&leo=bibend","mdp":"xT2}=2A9Q'.="},
+{"id":"29","nom":"Sykora","prenom":"Fleurette","mail":"fsykoras@ameblo.jp","tel":"755808733","dateNaissance":"1992-03-26","lienPortfolio":"https:\/\/ow.ly\/ante\/vivamus\/tortor\/duis\/mattis\/egestas.html?vitae=in&ipsum=imperdiet&aliquam=et&non=commodo&mauris=vulputate&morb","mdp":"fG5>iB8)9A.Lk{P&"}
+]
+}
+]
