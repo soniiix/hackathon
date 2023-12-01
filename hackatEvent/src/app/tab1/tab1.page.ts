@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -20,6 +21,12 @@ export class Tab1Page {
     {"id":"10","nbPlacesMax":"15","dateLimiteInscription":"2023-12-12 00:00:00","titre":"RoboRush: Construisez des bots, dominez l'arène","ville":"Bordeaux","codePostal":"42086","rue":"86 Passage Patrick Henriette","dateDebut":"2023-12-15","dateFin":"2023-12-17","heureDebut":"19:00:00","heureFin":"03:00:00"}
   ];
 
-  constructor() {}
+  constructor(private router:Router) {}
+
+
+  detailHackathonClick(){
+    console.log("ici");
+    this.router.navigate(['/tabs/tab2'])
+  }
 
 }
