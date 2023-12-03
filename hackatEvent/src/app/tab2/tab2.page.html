@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Liste des ateliers
+      Détails du hackathon
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Liste des ateliers</ion-title>
+      <ion-title size="large">Détails du hackathon</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -17,18 +17,26 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Libellé de l'atelier</ion-card-title>
-      <ion-card-subtitle>Le [date] à [heure]</ion-card-subtitle>
+      <ion-card-title>{{leHackathon.titre}}</ion-card-title>
+      <ion-card-subtitle>📅 Du {{leHackathon.dateDebut | date: 'dd/MM/yyyy'}} au {{leHackathon.dateFin | date: 'dd/MM/yyyy'}}</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>
       <ion-list>
-        <ion-item><strong>Salle :</strong></ion-item>
-        <ion-item><strong>Durée de l'atelier :</strong></ion-item>
-        <ion-item><strong>Nombre de participants : </strong></ion-item>
+        <ion-item><strong>Adresse :&#xA0;</strong>{{leHackathon.rue + ', ' + leHackathon.codePostal + ', ' + leHackathon.ville}}</ion-item>
+        <ion-item><strong>Date limite d'incription :&#xA0;</strong>{{leHackathon.dateLimiteInscription | date: 'dd/MM/yyyy'}}</ion-item>
+        <ion-item><strong>Nombre de places restantes :&#xA0;</strong>{{leHackathon.nbPlacesMax}}(nbPlacesMax)</ion-item>
       </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-      <ion-button>S'inscrire</ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Évenements liés</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Retrouvez ici les différents évènements liés à l'hackathon (ateliers/conférences)
     </ion-card-content>
   </ion-card>
 

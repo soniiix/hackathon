@@ -20,13 +20,18 @@ export class Tab1Page {
     {"id":"9","nbPlacesMax":"55","dateLimiteInscription":"2023-12-18 00:00:00","titre":"TechTitans Hack: Affrontez les titans de la technologie","ville":"Nantes","codePostal":"44000","rue":"10 Allée Gutenberg","dateDebut":"2023-12-22","dateFin":"2023-12-24","heureDebut":"18:00:00","heureFin":"02:00:00"},
     {"id":"10","nbPlacesMax":"15","dateLimiteInscription":"2023-12-12 00:00:00","titre":"RoboRush: Construisez des bots, dominez l'arène","ville":"Bordeaux","codePostal":"42086","rue":"86 Passage Patrick Henriette","dateDebut":"2023-12-15","dateFin":"2023-12-17","heureDebut":"19:00:00","heureFin":"03:00:00"}
   ];
+  unHackathon:any;
 
   constructor(private router:Router) {}
 
 
-  detailHackathonClick(){
-    console.log("ici");
-    this.router.navigate(['/tabs/tab2'])
+  detailHackathonClick(unHackathon:any){
+    let navigationExtras: NavigationExtras = {
+      state : {
+        item: unHackathon
+      }
+      };
+    this.router.navigate(['/tabs/tab2'], navigationExtras)
   }
 
 }
