@@ -1,0 +1,22 @@
+{% extends'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <br>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <h1>Connexion</h1>
+    </div>
+	<form action="{{path('app_login')}}" method="post">
+        <div class="form-group">
+            <label for="login">Login :</label>
+            <input type="text" class="form-control" id="login" name="_username" value="{{last_username}}"/>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" class="form-control" id="password" name="_password"/>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Connexion</button>
+	</form>
+</div>
+{% endblock %}

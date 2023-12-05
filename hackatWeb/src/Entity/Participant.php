@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
-class Participant
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,6 +41,48 @@ class Participant
 
     #[ORM\OneToMany(mappedBy: 'leParticipant', targetEntity: InscriptionHackathon::class)]
     private Collection $lesInscriptions;
+
+    
+    #[ORM\Column(type :"json")]
+    private $roles=[];
+
+
+    /***méthode qui renvoie une chaîne avec les informations voulues pour représenter un utilisateur.*/
+    public function getUserIdentifier() : string
+    {
+        return (string) $this->prenom." ".$this->nom;
+    }
+    
+    public function getRoles() : array
+    {
+        $roles=$this->roles;
+        //guaranteeeveryuseratleasthasROLE_USER
+        $roles[]='ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles) : self
+    {
+        $this->roles=$roles;
+        return$this;
+    }
+    
+    public function getPassword() : string
+    {
+        return $this->mdp;
+    }
+
+    public function setPassword(string $password) : self
+    {
+        $this->mdp = $password;
+        return$this;
+    }
+    
+    public function eraseCredentials()
+    {
+        //Ifyoustoreanytemporary,sensitivedataontheuser,clearithere
+        //$this->plainPassword=null;
+    }
 
     public function __construct()
     {
