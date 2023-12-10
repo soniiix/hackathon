@@ -2,17 +2,23 @@
 {% block body %}
 <div class="container">
     <br>
+    {% if errors %}
+        <div class="alert alert-danger">
+            {{ errors.messageKey|trans(errors.messageData, 'security') }}
+        </div>
+        <br>
+    {% endif %}
     <div class="shadow p-3 mb-5 bg-white rounded">
         <h1>Connexion</h1>
     </div>
 	<form action="{{path('app_login')}}" method="post">
         <div class="form-group">
-            <label for="login">Login :</label>
+            <label for="login">Adresse email :</label>
             <input type="text" class="form-control" id="login" name="_username" value="{{last_username}}"/>
         </div>
         <br>
         <div class="form-group">
-            <label for="password">Password :</label>
+            <label for="password">Mot de passe :</label>
             <input type="password" class="form-control" id="password" name="_password"/>
         </div>
         <br>

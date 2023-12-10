@@ -32,7 +32,7 @@
                         </li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li>
-                            <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                            <a class="nav-link active" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </li> 
                         {% endif %}
                     </ul>
