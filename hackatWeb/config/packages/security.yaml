@@ -3,7 +3,7 @@ security:
     password_hashers:
         App\Entity\Participant:
             #plaintext signifie que les mots de passe ne sont pas hashés
-            algorithm: plaintext
+            algorithm: bcrypt
     providers:
         app_user_provider:
             entity:
@@ -25,7 +25,7 @@ security:
                 # La route de deconnexion
                 path: app_logout
                 # La route sur laquelle doit être redirigé l'utilisateur après une déconnexion
-                target: app_home
+                target: app_login
             # lazy: true
             provider: app_user_provider
 
