@@ -1,0 +1,30 @@
+{% extends'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <br>
+    {#
+    {% for message in app.flashes('failure') %}
+        <div class="alert alert-danger" role="alert">
+            <h5>{{ message }}</h4>
+        </div>
+        <br>
+    {% endfor %}
+    #}
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <h1>Inscription</h1>
+    </div>
+	
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.mail) }}
+        {{ form_row(form.tel) }}
+        {{ form_row(form.dateNaissance) }}
+        {{ form_row(form.lienPortfolio) }}
+        {{ form_row(form.mdp) }}
+        <button type="submit" method="POST" class="btn btn-primary">S'inscrire</button>
+    {{ form_end(form) }}
+
+
+</div>
+{% endblock %}
