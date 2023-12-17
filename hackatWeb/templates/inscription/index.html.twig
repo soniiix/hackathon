@@ -1,15 +1,11 @@
 {% extends'base.html.twig' %}
+
+{% block title %}Hackat'Agence - Inscription
+{% endblock %}
+
 {% block body %}
 <div class="container">
     <br>
-    {#
-    {% for message in app.flashes('failure') %}
-        <div class="alert alert-danger" role="alert">
-            <h5>{{ message }}</h4>
-        </div>
-        <br>
-    {% endfor %}
-    #}
     <div class="shadow p-3 mb-5 bg-white rounded">
         <h1>Inscription</h1>
     </div>
@@ -25,6 +21,6 @@
         <button type="submit" method="POST" class="btn btn-primary">S'inscrire</button>
     {{ form_end(form) }}
 
-
 </div>
+<br>
 {% endblock %}
