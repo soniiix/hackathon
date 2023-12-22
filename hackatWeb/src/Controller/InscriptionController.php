@@ -18,10 +18,8 @@ class InscriptionController extends AbstractController
     {
         $participant = new Participant();
         $form=$this->createForm(InscriptionType::class, $participant);
-        $formInscription = $form->createView();
-        dump($participant);
         $form->handleRequest($request);
-        dump($participant);
+        $formInscription = $form->createView();
 
         if ($form->isSubmitted() and $form->isValid()){
             $entityManager = $doctrine->getManager();

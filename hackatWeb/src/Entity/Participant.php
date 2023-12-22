@@ -9,8 +9,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
+#[UniqueEntity('mail', message:'Cet email est déjà utilisé pour un autre compte.')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,30 +22,36 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\Type('string', message:'Nom invalide')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\Type('string', message:'Prénom invalide')]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 128)]
+    #[ORM\Column(length: 128, unique: true)]
+    #[Assert\Email(message: 'Veuillez saisir un email valide.')]
     private ?string $mail = null;
 
     #[ORM\Column]
+    //#[Assert\Regex("^(0\d{9}|0\d{1}[\s-]?(\d{2}[\s-]?){4})$", message:'Veuillez saisir un numéro de téléphone valide.')]
     private ?int $tel = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, name: 'dateNaissance')]
     private ?\DateTimeInterface $dateNaissance = null;
 
     #[ORM\Column(length: 128, name: 'lienPortfolio')]
+    #[Assert\Url(message:'Veuillez saisir un lien valide.')]
     private ?string $lienPortfolio = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\PasswordStrength(message:'Veuillez saisir un mot de passe complexe')]
     private ?string $mdp = null;
 
     #[ORM\OneToMany(mappedBy: 'leParticipant', targetEntity: InscriptionHackathon::class)]
     private Collection $lesInscriptions;
 
-    
+    //propriété de connexion
     #[ORM\Column(type :"json")]
     private $roles=[];
 
