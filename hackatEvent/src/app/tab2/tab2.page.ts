@@ -10,17 +10,19 @@ import { HackatServiceService } from '../hackat-service.service';
 })
 export class Tab2Page {
   leHackathon:any;
-  lesEvenements:any;
+  ateliers:any;
   
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(param=>{
       let navigation:any = this.router.getCurrentNavigation()?.extras.state;
       this.leHackathon = navigation.item;
+      
+      this.hackatService.getAteliersByIdHackathon(this.leHackathon.id).then(results => { 
+        this.ateliers=results;
+      });
     })
-
-    this.hackatService.getAteliers().then(results => { 
-      this.lesEvenements=results;
-    });
+    
+    
   }
 
 }

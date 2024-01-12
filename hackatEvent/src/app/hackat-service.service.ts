@@ -16,16 +16,16 @@ export class HackatServiceService {
 
   getHackathons(){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3000/hackathons";
+      var url = "http://192.168.51.98:3003/hackathons";
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });
     }) 
   }
 
-  getAteliers(){
+  getAteliersByIdHackathon(idHackathon:any){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3000/ateliers";
+      var url = "http://192.168.51.98:3003/ateliers/"+ idHackathon;
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });
@@ -34,7 +34,7 @@ export class HackatServiceService {
 
   getInscriptionAtelier(){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3000/inscription-atelier";
+      var url = "http://192.168.51.98:3003/inscription-atelier";
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });

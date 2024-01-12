@@ -32,24 +32,14 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Évenements liés</ion-card-title>
+      <ion-card-title>Ateliers liés</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      Retrouvez ici les différents évènements liés à l'hackathon (ateliers/conférences)
-      <ion-grid>
-        <ion-row>
-          <ion-col>Ateliers</ion-col>
-          <ion-col>Conférences</ion-col>
-        </ion-row>
-        <!--
-        <ion-row *ngFor ="let transac of getListTransac()">
-          <ion-col>{{transac.type}}</ion-col>
-          <ion-col>{{transac.date}}</ion-col>
-          <ion-col>{{transac.montant}}</ion-col>
-        </ion-row>
-        -->
-      </ion-grid>
+      Retrouvez ici les ateliers liés à l'hackathon
+      <ion-list>
+        <ion-item *ngFor ="let unAtelier of ateliers">🔸<strong>{{unAtelier.libelle}}</strong>&#xA0;---&#xA0;<strong>Date :&#xA0;</strong>{{unAtelier.date | date: 'dd/MM/yyyy'}} ---&#xA0;<strong>Salle :&#xA0;</strong> {{unAtelier.salle}}</ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
