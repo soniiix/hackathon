@@ -13,15 +13,12 @@ export class Tab1Page {
   hackathons:any;
   unHackathon:any;
 
-  constructor(
-    public http : HttpClient,
-    public hackatService : HackatServiceService,
-    private router:Router) {
-      this.hackatService.getHackathons().then(results => { 
-        this.hackathons = results;
-        console.log(this.hackathons)
-      });
-    }
+  constructor(public http : HttpClient, public hackatService : HackatServiceService, private router:Router)
+  {
+    this.hackatService.getHackathons().then(results => { 
+      this.hackathons = results;
+    });
+  }
 
 
   detailHackathonClick(unHackathon:any){
