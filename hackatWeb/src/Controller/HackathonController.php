@@ -20,9 +20,18 @@ class HackathonController extends AbstractController
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
+        //if ($this->isGranted('ROLE_USER') == false) {
+          //  dump('connecté');
+        //}
+
+
+
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $recherche = $form->getData()['titre'];
-            //dump($recherche);
+            dump($recherche);
+
             $lesHackathons = $repository->findBy(['titre' => $recherche], ['dateDebut' => 'DESC']);
             //dump($lesHackathons);
         }

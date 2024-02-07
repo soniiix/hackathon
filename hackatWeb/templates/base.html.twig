@@ -25,12 +25,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_hackathon')}}">Les Hackathons</a>
                         </li>
+                        <!-- si l'utilisateur est connecté, alors on n'affiche pas les pages d'inscription et de connexion -->
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_inscription')}}">Inscription</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
                         </li>
+                        {% endif %}
+                        <!-- si l'utilisateur est connecté, alors on affiche le bouton de déconnexion -->
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li>
                             <a class="nav-link active" href="{{ path('app_logout') }}">Se déconnecter</a>

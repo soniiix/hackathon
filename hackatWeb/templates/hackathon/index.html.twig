@@ -44,27 +44,35 @@
                                 </button>
                                 </h2>
                                 <div id="collapse_{{i}}" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                    <p>
-                                    <strong>Adresse : </strong>{{unHackathon.rue}}, {{unHackathon.codePostal}}, {{unHackathon.ville}}
-                                    </p>
-                                    <p> 
-                                        <strong>Dates précises : </strong>
-                                        <br>
-                                        Du {{unHackathon.dateDebut|date('d/m/Y')}} à {{unHackathon.heureDebut|date('H:i')}}
-                                        <br>
-                                        Au {{unHackathon.dateFin|date('d/m/Y')}} à {{unHackathon.heureFin|date('H:i')}}
-                                    </p>
-                                    <p>
-                                        <strong>Date limite d'inscription : </strong>
-                                        {{unHackathon.dateLimiteInscription|date('d/m/Y')}}
-                                    </p>
-                                </div>
+                                    <div class="accordion-body">
+                                        <p>
+                                        <strong>Adresse : </strong>{{unHackathon.rue}}, {{unHackathon.codePostal}}, {{unHackathon.ville}}
+                                        </p>
+                                        <p> 
+                                            <strong>Dates précises : </strong>
+                                            <br>
+                                            Du {{unHackathon.dateDebut|date('d/m/Y')}} à {{unHackathon.heureDebut|date('H:i')}}
+                                            <br>
+                                            Au {{unHackathon.dateFin|date('d/m/Y')}} à {{unHackathon.heureFin|date('H:i')}}
+                                        </p>
+                                        <p>
+                                            <strong>Date limite d'inscription : </strong>
+                                            {{unHackathon.dateLimiteInscription|date('d/m/Y')}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         {% set i = i + 1 %}
                     </div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <form action="{{path('app_hackathon')}}" method="post">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button type="submit" class="btn btn-outline-primary">S'inscrire</button>
+                                <br>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
             </div><br>

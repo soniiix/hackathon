@@ -30,10 +30,10 @@ class InscriptionController extends AbstractController
             $this->addFlash('success', 'Votre compte a bien été créé. Veuillez vous connecter ci-dessous');
             return $this->redirectToRoute('app_login');
         }
-        //else{
-            //$this->addFlash('failure', "Erreur d'inscription, veuillez réessayer.");
-            //return $this->redirectToRoute('app_inscription');
-        //}
+        /*else{
+            $this->addFlash('failure', "Erreur d'inscription, veuillez réessayer.");
+            return $this->redirectToRoute('app_inscription');
+        }*/
 
         return $this->render('inscription/index.html.twig', ['form' => $formInscription]);
     }
