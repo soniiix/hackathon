@@ -16,7 +16,7 @@
     <!-- si inscription réussie, alors demande de connexion -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">
-            <h5>{{ message }}</h4>
+            <h4>{{ message }}</h4>
         </div>
         <br>
     {% endfor %}
