@@ -6,12 +6,14 @@
 {% block body %}
 <div class="container">
     <br>
+    <!-- message si connexion échouée -->
     {% if errors %}
         <div class="alert alert-danger">
             <h5>{{ errors.messageKey|trans(errors.messageData, 'security') }}</h5>
         </div>
         <br>
     {% endif %}
+    <!-- si inscription réussie, alors demande de connexion -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">
             <h5>{{ message }}</h4>
@@ -21,6 +23,7 @@
     <div class="shadow p-3 mb-5 bg-white rounded">
         <h1>Connexion</h1>
     </div>
+    <!-- formulaire de connexion -->
 	<form action="{{path('app_login')}}" method="post">
         <div class="form-group">
             <label for="login">Adresse email :</label>
