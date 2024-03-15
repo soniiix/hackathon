@@ -11,6 +11,7 @@ import { HackatServiceService } from '../hackat-service.service';
 export class Tab2Page {
   leHackathon:any;
   ateliers:any;
+  unAtelier:any
   
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(param=>{
@@ -21,8 +22,15 @@ export class Tab2Page {
         this.ateliers=results;
       });
     })
-    
-    
+  }
+
+  inscriptionClick(unAtelier:any){
+    let navigationExtras: NavigationExtras = {
+      state : {
+        item: unAtelier
+      }
+      };
+    this.router.navigate(['/tabs/inscription'], navigationExtras)
   }
 
 }

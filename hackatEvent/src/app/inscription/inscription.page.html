@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{leAtelier.libelle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inscription à un atelier</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <h6>Remplissez ce formulaire pour vous inscrire à cet atelier</h6>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="inscriptionSubmit()" novalidate>
+        <ion-input label="Nom" name="nom" [(ngModel)]="nom" label-placement="floating" fill="outline" placeholder="Entrer un nom"></ion-input>
+        <br>
+        <ion-input label="Prénom" name="prenom" [(ngModel)]="prenom" label-placement="floating" fill="outline" placeholder="Entrer un prénom"></ion-input>
+        <br>
+        <ion-input label="Email" name="email" [(ngModel)]="email" type="email" label-placement="floating" fill="outline" placeholder="Entrer un email"></ion-input>
+        <br>
+        <ion-button id="present-alert" type="submit">S'inscrire</ion-button>
+        <ion-alert trigger="present-alert" subHeader="Inscription réussie !" message="Vous êtes bien inscrit à cet atelier." [buttons]="alertButtons"></ion-alert>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
