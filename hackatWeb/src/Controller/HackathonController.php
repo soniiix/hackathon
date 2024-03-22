@@ -24,9 +24,10 @@ class HackathonController extends AbstractController
 
         return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons]);
     }
+    
 
     //======== Route pour voir les hackathons du participant connecté ========
-    #[Route('/hackathon/{idParticipant}', name: 'app_meshackathons')]
+    #[Route('/meshackathons/{idParticipant}', name: 'app_meshackathons')]
     public function meshackathons(ManagerRegistry $doctrine, Request $request, $idParticipant): Response
     {
         $hackathonRepository = $doctrine->getRepository(Hackathon::class);
@@ -37,11 +38,9 @@ class HackathonController extends AbstractController
 
         $lesInscriptions = $inscriptionRepository->findBy(['leParticipant' => $leParticipant]);
 
-        $lesHackathonsDuParticipant = $hackathonRepository->findBy([], ['dateDebut' => 'DESC']);
-
-        
-        return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathonsDuParticipant]);
+        return $this->render('meshackathons/index.html.twig', ['lesInscriptions' => $lesInscriptions]);
     }
+
 
     //======== Route permettant l'inscription à un hackathon ========
     #[Route('/hackathon/{idHackathon}-{idParticipant}', name: 'app_inscription_hackathon')]

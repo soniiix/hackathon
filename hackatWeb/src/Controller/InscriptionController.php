@@ -13,9 +13,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class InscriptionController extends AbstractController
 {
+    //======== Route pour enregistrer une nouvelle inscription ========
     #[Route('/inscription', name: 'app_inscription')]
     public function index(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
+        //création d'un objet participant et d'un form
         $participant = new Participant();
         $form=$this->createForm(InscriptionType::class, $participant);
         $form->handleRequest($request);
@@ -24,16 +26,15 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() and $form->isValid()){
             $entityManager = $doctrine->getManager();
             $entityManager->persist($participant);
+
             $mdpHash = password_hash($participant->getMdp(), PASSWORD_BCRYPT);
             $participant->setMdp($mdpHash);
+
             $entityManager->flush();
+
             $this->addFlash('success', 'Votre compte a bien été créé. Veuillez vous connecter ci-dessous');
             return $this->redirectToRoute('app_login');
         }
-        /*else{
-            $this->addFlash('failure', "Erreur d'inscription, veuillez réessayer.");
-            return $this->redirectToRoute('app_inscription');
-        }*/
 
         return $this->render('inscription/index.html.twig', ['form' => $formInscription]);
     }
