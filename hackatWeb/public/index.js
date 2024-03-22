@@ -1,0 +1,18 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    searchButton.addEventListener('click', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const hackathonCards = document.querySelectorAll('.card');
+
+        hackathonCards.forEach(function(card) {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            if (title.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});

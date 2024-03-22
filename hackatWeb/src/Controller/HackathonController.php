@@ -20,42 +20,27 @@ class HackathonController extends AbstractController
     {
         $repository = $doctrine->getRepository(Hackathon::class);
 
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
+        $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $recherche = $form->getData()['titre'];
-            dump($recherche);
-
-            $lesHackathons = $repository->findBy(['titre' => $recherche], ['dateDebut' => 'DESC']);
-            //dump($lesHackathons);
-        } else {
-            $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
-        }
-
-        return $this->render('hackathon/index.html.twig', ['form' => $form->createView(), 'lesHackathons' => $lesHackathons]);
+        return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons]);
     }
 
     //======== Route pour voir les hackathons du participant connecté ========
     #[Route('/hackathon/{idParticipant}', name: 'app_meshackathons')]
-    public function meshackathons(ManagerRegistry $doctrine, Request $request): Response
+    public function meshackathons(ManagerRegistry $doctrine, Request $request, $idParticipant): Response
     {
-        $repository = $doctrine->getRepository(Hackathon::class);
+        $hackathonRepository = $doctrine->getRepository(Hackathon::class);
+        $participantRepository = $doctrine->getRepository(Participant::class);
+        $inscriptionRepository = $doctrine->getRepository(InscriptionHackathon::class);
 
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
+        $leParticipant = $participantRepository->find($idParticipant);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $recherche = $form->getData()['titre'];
-            dump($recherche);
+        $lesInscriptions = $inscriptionRepository->findBy(['leParticipant' => $leParticipant]);
 
-            $lesHackathons = $repository->findBy(['titre' => $recherche], ['dateDebut' => 'DESC']);
-            //dump($lesHackathons);
-        } else {
-            $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
-        }
+        $lesHackathonsDuParticipant = $hackathonRepository->findBy([], ['dateDebut' => 'DESC']);
 
-        return $this->render('hackathon/index.html.twig', ['form' => $form->createView(), 'lesHackathons' => $lesHackathons]);
+        
+        return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathonsDuParticipant]);
     }
 
     //======== Route permettant l'inscription à un hackathon ========

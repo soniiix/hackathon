@@ -24,18 +24,15 @@
 			<br>
     	{% endfor %}
 
-		<div
-			class="container">
+		<div class="container">
 			<!-- barre de recherche -->
 			<nav class="navbar">
 				<div class="container-fluid">
 					<a class="navbar-brand"></a>
-					<form class="d-flex" role="search">
-						{{ form_start(form) }}
-						{{ form_row(form.titre) }}
+					<form class="d-flex" role="search" id="searchForm">
+					 	<input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" id="searchInput">
 						&nbsp;
-						<button class="btn btn-primary" type="submit">OK</button>
-						{{ form_end(form) }}
+						<button class="btn btn-primary" type="button" id="searchButton">OK</button>
 					</form>
 				</div>
 			</nav><br>
@@ -116,3 +113,4 @@
 		</div>
 	</div>
 {% endblock %}
+
