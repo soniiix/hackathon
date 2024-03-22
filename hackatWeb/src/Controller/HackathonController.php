@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HackathonController extends AbstractController
 {
+    //======== Route pour voir tous les hackathons ========
     #[Route('/hackathon', name: 'app_hackathon')]
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
@@ -35,6 +36,29 @@ class HackathonController extends AbstractController
         return $this->render('hackathon/index.html.twig', ['form' => $form->createView(), 'lesHackathons' => $lesHackathons]);
     }
 
+    //======== Route pour voir les hackathons du participant connecté ========
+    #[Route('/hackathon/{idParticipant}', name: 'app_meshackathons')]
+    public function meshackathons(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $repository = $doctrine->getRepository(Hackathon::class);
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recherche = $form->getData()['titre'];
+            dump($recherche);
+
+            $lesHackathons = $repository->findBy(['titre' => $recherche], ['dateDebut' => 'DESC']);
+            //dump($lesHackathons);
+        } else {
+            $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
+        }
+
+        return $this->render('hackathon/index.html.twig', ['form' => $form->createView(), 'lesHackathons' => $lesHackathons]);
+    }
+
+    //======== Route permettant l'inscription à un hackathon ========
     #[Route('/hackathon/{idHackathon}-{idParticipant}', name: 'app_inscription_hackathon')]
     public function inscription(ManagerRegistry $doctrine, $idHackathon, $idParticipant): Response
     {

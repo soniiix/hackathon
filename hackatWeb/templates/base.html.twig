@@ -34,8 +34,11 @@
                             <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
                         </li>
                         {% endif %}
-                        <!-- si l'utilisateur est connecté, alors on affiche le bouton de déconnexion -->
+                        <!-- si l'utilisateur est connecté, alors on affiche la page mes hackathons et le bouton de déconnexion -->
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li>
+                            <a class="nav-link" href="{{ path('app_meshackathons') }}">Mes hackathons</a>
+                        </li> 
                         <li>
                             <a class="nav-link active" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </li> 
