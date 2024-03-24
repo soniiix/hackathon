@@ -45,13 +45,32 @@
 						<div class="card-body">
 							<h5 class="card-title">{{unHackathon.titre}}</h5>
 							<p class="card-text">
-								<strong>Date :
-								</strong>
+								<strong>Date :</strong>
 								{{unHackathon.dateDebut|date('d/m/Y')}}</p>
 							<p class="card-text">
-								<small class="text-body-secondary">{{unHackathon.nbPlacesMax}}
-									places restantes</small>
+								<small class="text-body-secondary">{{unHackathon.nbPlacesMax}} places restantes</small>
+								<br>
+								<!-- fonctionnalité d'ajout aux favoris si utilisateur connecté -->
+								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+								<h5>
+									<i id="icon-favorite_{{i}}" onclick="addToFavorite({{i}})" class="bi bi-heart" style="color:black; cursor:pointer;"></i>
+								</h5>
 							</p>
+							<script>						
+								function addToFavorite(n){
+									var iconFavorite = document.getElementById('icon-favorite_' + n)
+
+									if (iconFavorite.style.color == "black"){
+										iconFavorite.className = "bi bi-heart-fill"
+										iconFavorite.style.color = "red";
+									}
+									else{
+										iconFavorite.className = "bi bi-heart"
+										iconFavorite.style.color = "black";
+									}
+								}
+							</script>
+							{% endif %}
 
 							<div class="accordion" id="accordionExample">
 								<div class="accordion-item">
@@ -63,15 +82,13 @@
 									<div id="collapse_{{i}}" class="accordion-collapse collapse">
 										<div class="accordion-body">
 											<p>
-												<strong>Adresse :
-												</strong>
+												<strong>Adresse :</strong>
 												{{unHackathon.rue}},
 												{{unHackathon.codePostal}},
 												{{unHackathon.ville}}
 											</p>
 											<p>
-												<strong>Dates précises :
-												</strong>
+												<strong>Dates précises :</strong>
 												<br>
 												Du
 												{{unHackathon.dateDebut|date('d/m/Y')}}
@@ -84,8 +101,7 @@
 												{{unHackathon.heureFin|date('H:i')}}
 											</p>
 											<p>
-												<strong>Date limite d'inscription :
-												</strong>
+												<strong>Date limite d'inscription :</strong>
 												{{unHackathon.dateLimiteInscription|date('d/m/Y')}}
 											</p>
 										</div>

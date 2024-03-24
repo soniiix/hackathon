@@ -17,11 +17,3 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-
-//désactivation de la touche entrée - NON FONCTIONNEL
-$('#searchInput').keydown( function(){
-    if ( event.which == 13 )
-    {
-        event.preventDefault();
-    }
-});
