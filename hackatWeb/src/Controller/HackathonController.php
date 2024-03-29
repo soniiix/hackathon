@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Favori;
 use App\Entity\Hackathon;
 use App\Entity\InscriptionHackathon;
 use App\Entity\Participant;
 use App\Form\SearchType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +27,35 @@ class HackathonController extends AbstractController
         return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons]);
     }
     
+    //======== Route d'API pour créer un favori ========
+    #[Route('/favori{idHackathon}x{idParticipant}', name: 'app_newfavorite')]
+    public function getFavoris(ManagerRegistry $doctrine, $idHackathon, $idParticipant)
+    {
+        $hackathonRepository = $doctrine->getRepository(Hackathon::class);
+        $participantRepository = $doctrine->getRepository(Participant::class);
+
+        //récupération des objets
+        $leHackathon = $hackathonRepository->find($idHackathon);
+        $leParticipant = $participantRepository->find($idParticipant);
+
+        //création d'un nouveau favori correspondant
+        $leFavori = new Favori();
+        $leFavori->setLeHackathon($leHackathon);
+        $leFavori->setLeParticipant($leParticipant);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($leFavori);
+        $entityManager->flush();
+
+        $data = [
+            'idHackathon' => $leFavori->getLeHackathon()->getId(),
+            'idParticipant' => $leFavori->getLeParticipant()->getId()
+        ];
+
+        return new JsonResponse($data);
+    }
+
+
 
     //======== Route pour voir les hackathons du participant connecté ========
     #[Route('/meshackathons/{idParticipant}', name: 'app_meshackathons')]

@@ -55,6 +55,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type :"json")]
     private $roles=[];
 
+    #[ORM\OneToMany(mappedBy: 'leParticipant', targetEntity: Favori::class)]
+    private Collection $lesFavoris;
+
 
     /***méthode qui renvoie une chaîne avec les informations voulues pour représenter un utilisateur.*/
     public function getUserIdentifier() : string
@@ -96,6 +99,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->lesInscriptions = new ArrayCollection();
+        $this->lesFavoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +215,36 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($lesInscription->getLeParticipant() === $this) {
                 $lesInscription->setLeParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favori>
+     */
+    public function getLesFavoris(): Collection
+    {
+        return $this->lesFavoris;
+    }
+
+    public function addLesFavori(Favori $lesFavori): static
+    {
+        if (!$this->lesFavoris->contains($lesFavori)) {
+            $this->lesFavoris->add($lesFavori);
+            $lesFavori->setLeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesFavori(Favori $lesFavori): static
+    {
+        if ($this->lesFavoris->removeElement($lesFavori)) {
+            // set the owning side to null (unless already changed)
+            if ($lesFavori->getLeParticipant() === $this) {
+                $lesFavori->setLeParticipant(null);
             }
         }
 

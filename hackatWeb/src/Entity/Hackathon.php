@@ -55,10 +55,14 @@ class Hackathon
     #[ORM\OneToMany(mappedBy: 'leHackathon', targetEntity: InscriptionHackathon::class)]
     private Collection $lesInscriptions;
 
+    #[ORM\OneToMany(mappedBy: 'leHackathon', targetEntity: Favori::class)]
+    private Collection $lesFavoris;
+
     public function __construct()
     {
         $this->lesInscriptions = new ArrayCollection();
         $this->lesEvenements = new ArrayCollection();
+        $this->lesFavoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,6 +240,36 @@ class Hackathon
     public function removeLesEvenement(Evenement $lesEvenement): static
     {
         $this->lesEvenements->removeElement($lesEvenement);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favori>
+     */
+    public function getLesFavoris(): Collection
+    {
+        return $this->lesFavoris;
+    }
+
+    public function addLesFavori(Favori $lesFavori): static
+    {
+        if (!$this->lesFavoris->contains($lesFavori)) {
+            $this->lesFavoris->add($lesFavori);
+            $lesFavori->setLeHackathon($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesFavori(Favori $lesFavori): static
+    {
+        if ($this->lesFavoris->removeElement($lesFavori)) {
+            // set the owning side to null (unless already changed)
+            if ($lesFavori->getLeHackathon() === $this) {
+                $lesFavori->setLeHackathon(null);
+            }
+        }
 
         return $this;
     }

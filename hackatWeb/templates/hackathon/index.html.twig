@@ -53,23 +53,12 @@
 								<!-- fonctionnalité d'ajout aux favoris si utilisateur connecté -->
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 								<h5>
-									<i id="icon-favorite_{{i}}" onclick="addToFavorite({{i}})" class="bi bi-heart" style="color:black; cursor:pointer;"></i>
+									<a href="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}" class="link-favorite">
+										<i id="icon-favorite_{{i}}"  class="bi bi-heart" style="color:black; cursor:pointer;"></i>
+									</a>
 								</h5>
 							</p>
-							<script>						
-								function addToFavorite(n){
-									var iconFavorite = document.getElementById('icon-favorite_' + n)
-
-									if (iconFavorite.style.color == "black"){
-										iconFavorite.className = "bi bi-heart-fill"
-										iconFavorite.style.color = "red";
-									}
-									else{
-										iconFavorite.className = "bi bi-heart"
-										iconFavorite.style.color = "black";
-									}
-								}
-							</script>
+							
 							{% endif %}
 
 							<div class="accordion" id="accordionExample">
@@ -125,6 +114,48 @@
 						{% endif %}
 					</div>
 				{% endfor %}
+				<!-- Script d'ajout aux favoris -->
+				<script>
+
+					var lesLiens = document.getElementByClassName("link-favorite")
+					Array.from(lesLiens).forEach((unLien) =>
+						unLien.addEventListener("click", majLike)
+					)
+
+					function majLike(event) {
+						event.preventDefault()
+						let xhr = new XMLHttpRequest();
+						let baliseA = this;
+						let url = this.href;
+						xhr.open("get", url);
+						xhr.responseType = "json";
+						xhr.send();
+						xhr.onload = function () {
+							if (xhr.status != 200) {
+								alert("Erreur " + xhr.status + " : " + xhr.statusText);
+							} else {
+								//...
+							}
+						};
+						xhr.onerror = function () {
+							alert("La requête a échoué");
+						}
+					}
+
+
+					function addToFavorite(n){
+						var iconFavorite = document.getElementById('icon-favorite_' + n)
+
+						if (iconFavorite.style.color == "black"){
+							iconFavorite.className = "bi bi-heart-fill"
+							iconFavorite.style.color = "red";
+						}
+						else{
+							iconFavorite.className = "bi bi-heart"
+							iconFavorite.style.color = "black";
+						}
+					}
+				</script>
 			</div><br>
 		</div>
 	</div>
