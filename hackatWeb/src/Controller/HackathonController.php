@@ -17,44 +17,56 @@ use Symfony\Component\Routing\Annotation\Route;
 class HackathonController extends AbstractController
 {
     //======== Route pour voir tous les hackathons ========
-    #[Route('/hackathon', name: 'app_hackathon')]
+    #[Route('/hackathons', name: 'app_hackathon')]
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
-        $repository = $doctrine->getRepository(Hackathon::class);
+        $hackathonRepository = $doctrine->getRepository(Hackathon::class);
+        $favoriRepository = $doctrine->getRepository(Favori::class);
+        
+        $lesFavoris = $favoriRepository->findAll();
+        $lesHackathons = $hackathonRepository->findBy([], ['dateDebut' => 'DESC']);
 
-        $lesHackathons = $repository->findBy([], ['dateDebut' => 'DESC']);
-
-        return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons]);
+        return $this->render('hackathon/index.html.twig', ['lesHackathons' => $lesHackathons, 'lesFavoris' => $lesFavoris]);
     }
     
+
     //======== Route d'API pour créer un favori ========
-    #[Route('/favori{idHackathon}x{idParticipant}', name: 'app_newfavorite')]
+    #[Route('/favoris/hackathons/{idHackathon}/participants/{idParticipant}', name: 'app_newfavorite')]
     public function getFavoris(ManagerRegistry $doctrine, $idHackathon, $idParticipant)
     {
         $hackathonRepository = $doctrine->getRepository(Hackathon::class);
         $participantRepository = $doctrine->getRepository(Participant::class);
+        $favoriRepository = $doctrine->getRepository(Favori::class);
 
         //récupération des objets
         $leHackathon = $hackathonRepository->find($idHackathon);
         $leParticipant = $participantRepository->find($idParticipant);
 
-        //création d'un nouveau favori correspondant
-        $leFavori = new Favori();
-        $leFavori->setLeHackathon($leHackathon);
-        $leFavori->setLeParticipant($leParticipant);
+        //on vérifie si le favori existe déjà...
+        $leFavori = $favoriRepository->findBy(['leParticipant' => $leParticipant, 'leHackathon' => $leHackathon]);
 
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($leFavori);
-        $entityManager->flush();
+        //...si ce n'est pas le cas
+        if($leFavori == []){
+            //création d'un nouveau favori correspondant
+            $newFavori = new Favori();
+            $newFavori->setLeHackathon($leHackathon);
+            $newFavori->setLeParticipant($leParticipant);
 
-        $data = [
-            'idHackathon' => $leFavori->getLeHackathon()->getId(),
-            'idParticipant' => $leFavori->getLeParticipant()->getId()
-        ];
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($newFavori);
+            $entityManager->flush();
 
-        return new JsonResponse($data);
+            $data = [
+                'idHackathon' => $newFavori->getLeHackathon()->getId(),
+                'idParticipant' => $newFavori->getLeParticipant()->getId()
+            ];
+            return new JsonResponse($data);
+        }
+        //...si c'est le cas, on renvoie une erreur
+        else{
+            return new JsonResponse(null, 404);
+        }
     }
-
 
 
     //======== Route pour voir les hackathons du participant connecté ========

@@ -53,12 +53,58 @@
 								<!-- fonctionnalité d'ajout aux favoris si utilisateur connecté -->
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 								<h5>
-									<a href="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}" class="link-favorite">
-										<i id="icon-favorite_{{i}}"  class="bi bi-heart" style="color:black; cursor:pointer;"></i>
-									</a>
+									<!-- on vérifie si ce hackathon a déjà été ajoutée aux favoris par l'utilisateur -->
+									{% set dejaLike = false %}
+									{% for unFavori in lesFavoris %}
+										{% if unFavori.leHackathon == unHackathon and unFavori.leParticipant == app.user %}
+											{% set dejaLike = true %}
+										{% endif %}
+									{% endfor %}
+									<!-- on affiche l'icône correspondante -->
+									{% if dejaLike == true %}
+										<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
+										id="icon-favorite_{{i}}" onclick="addToFavorite({{i}}, {{unHackathon.id}})" class="bi bi-heart-fill" style="color:red; cursor:pointer;"></i>
+										<span class="span-favorite"></span>
+									{% else %}
+										<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
+										id="icon-favorite_{{i}}" onclick="addToFavorite({{i}}, {{unHackathon.id}})" class="bi bi-heart" style="color:black; cursor:pointer;"></i>
+										<span class="span-favorite"></span>
+									{% endif %}
 								</h5>
 							</p>
-							
+							<!-- Script d'ajout aux favoris -->
+							<script>
+								function addToFavorite(n, idHackathon) {
+									//récupération des éléments nécessaires
+									var iconFavorite = document.getElementById('icon-favorite_' + n);
+									var url = iconFavorite.getAttribute('data-url');
+									
+									var xhr = new XMLHttpRequest();
+									xhr.open("get", url);
+									xhr.responseType = "json";
+									xhr.send();
+									
+									xhr.onload = function () {
+										console.log(xhr.status);
+										//si le hackathon est déjà en favori, on le retire
+										if (xhr.status != 200) {
+											//à compléter pour pouvoir supprimer le hackathon !!
+											iconFavorite.className = "bi bi-heart";
+											iconFavorite.style.color = "black";
+										//Si le statut HTTP est 200, on ajoute l'hackathon aux favoris
+										} else {
+											//"animation" de changement d'icône
+											iconFavorite.className = "bi bi-heart-fill";
+											iconFavorite.style.color = "red";
+										}
+									};
+									//Si la requête n'a pas pu aboutir...
+									xhr.onerror = function () {
+										alert("La requête a échoué");
+									}
+								}
+							</script>
+
 							{% endif %}
 
 							<div class="accordion" id="accordionExample">
@@ -114,48 +160,6 @@
 						{% endif %}
 					</div>
 				{% endfor %}
-				<!-- Script d'ajout aux favoris -->
-				<script>
-
-					var lesLiens = document.getElementByClassName("link-favorite")
-					Array.from(lesLiens).forEach((unLien) =>
-						unLien.addEventListener("click", majLike)
-					)
-
-					function majLike(event) {
-						event.preventDefault()
-						let xhr = new XMLHttpRequest();
-						let baliseA = this;
-						let url = this.href;
-						xhr.open("get", url);
-						xhr.responseType = "json";
-						xhr.send();
-						xhr.onload = function () {
-							if (xhr.status != 200) {
-								alert("Erreur " + xhr.status + " : " + xhr.statusText);
-							} else {
-								//...
-							}
-						};
-						xhr.onerror = function () {
-							alert("La requête a échoué");
-						}
-					}
-
-
-					function addToFavorite(n){
-						var iconFavorite = document.getElementById('icon-favorite_' + n)
-
-						if (iconFavorite.style.color == "black"){
-							iconFavorite.className = "bi bi-heart-fill"
-							iconFavorite.style.color = "red";
-						}
-						else{
-							iconFavorite.className = "bi bi-heart"
-							iconFavorite.style.color = "black";
-						}
-					}
-				</script>
 			</div><br>
 		</div>
 	</div>
