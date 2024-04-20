@@ -4,11 +4,11 @@ import { HackatServiceService } from '../hackat-service.service';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-hackathons',
+  templateUrl: 'hackathons.page.html',
+  styleUrls: ['hackathons.page.scss']
 })
-export class Tab1Page {
+export class HackathonsPage {
   
   hackathons:any;
   unHackathon:any;
@@ -27,7 +27,7 @@ export class Tab1Page {
         item: unHackathon
       }
       };
-    this.router.navigate(['/tabs/tab2'], navigationExtras)
+    this.router.navigate(['/tabs/details'], navigationExtras)
   }
 
 }
