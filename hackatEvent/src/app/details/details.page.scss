@@ -2,7 +2,7 @@ ion-modal#ateliers-modal {
     --width: fit-content;
     --min-width: 250px;
     --height: fit-content;
-    --border-radius: 6px;
+    --border-radius: 10px;
     --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
   }
   
@@ -12,15 +12,16 @@ ion-modal#ateliers-modal {
   
   ion-modal#ateliers-modal ion-icon {
     margin-right: 6px;
-  
-  
     padding: 4px 0;
   
     color: #aaaaaa;
   }
 
-  ion-button#btn-inscription{
+  ion-button#btn-favori{
     margin-top: 10px;
+  }
+
+  ion-button#btn-inscription{
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;

@@ -33,4 +33,8 @@ export class DetailsPage {
     this.router.navigate(['/tabs/inscription'], navigationExtras)
   }
 
+  addToFavorites(unAtelier:any){
+
+  }
+
 }

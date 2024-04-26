@@ -62,9 +62,12 @@ class HackathonController extends AbstractController
             ];
             return new JsonResponse($data);
         }
-        //...si c'est le cas, on renvoie une erreur
+        //...si c'est le cas, on supprime le favori
         else{
-            return new JsonResponse(null, 404);
+            $entityManager = $doctrine->getManager();
+            $entityManager->remove($leFavori[0]);
+            $entityManager->flush();
+            return new JsonResponse(null, 409);
         }
     }
 

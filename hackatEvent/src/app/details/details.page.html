@@ -67,7 +67,10 @@
                     <ion-icon name="location-outline"></ion-icon>
                     <ion-label>Salle :&nbsp; {{unAtelier.salle}}</ion-label>
                   </ion-item>
-                  <ion-button (click)="modal.dismiss()" (click)="inscriptionClick(unAtelier)" id="btn-inscription" expand="block">S'inscrire</ion-button>
+                  <ion-button (click)="modal.dismiss()" (click)="inscriptionClick(unAtelier)" id="btn-inscription">S'inscrire</ion-button>
+                  <ion-button (click)="modal.dismiss()" (click)="addToFavorites(unAtelier)" id="btn-favori">
+                    <ion-icon name="heart-outline"></ion-icon>
+                  </ion-button>
                 </ion-list>
               </div>
             </ng-template>

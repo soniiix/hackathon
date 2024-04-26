@@ -62,13 +62,25 @@
 									{% endfor %}
 									<!-- on affiche l'icône correspondante -->
 									{% if dejaLike == true %}
-										<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
-										id="icon-favorite_{{i}}" onclick="addToFavorite({{i}}, {{unHackathon.id}})" class="bi bi-heart-fill" style="color:red; cursor:pointer;"></i>
-										<span class="span-favorite"></span>
+										<button type="button" class="btn btn-light" onclick="addToFavorite({{i}}, {{unHackathon.id}})">
+											<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
+											id="icon-favorite_{{i}}"
+											onclick="addToFavorite({{i}}, {{unHackathon.id}})"
+											class="bi bi-heart-fill"
+											style="color:red; cursor:pointer;">
+											</i>
+											Favori
+										</button>
+										
 									{% else %}
-										<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
-										id="icon-favorite_{{i}}" onclick="addToFavorite({{i}}, {{unHackathon.id}})" class="bi bi-heart" style="color:black; cursor:pointer;"></i>
-										<span class="span-favorite"></span>
+										<button type="button" class="btn btn-light" onclick="addToFavorite({{i}}, {{unHackathon.id}})">
+											<i data-url="{{ path('app_newfavorite',{idHackathon:unHackathon.id, idParticipant:app.user.id}) }}"
+											id="icon-favorite_{{i}}"
+											class="bi bi-heart"
+											style="color:black; cursor:pointer;">
+											</i>
+											Favori
+										</button>
 									{% endif %}
 								</h5>
 							</p>
@@ -88,7 +100,7 @@
 										console.log(xhr.status);
 										//si le hackathon est déjà en favori, on le retire
 										if (xhr.status != 200) {
-											//à compléter pour pouvoir supprimer le hackathon !!
+											//changement d'icône
 											iconFavorite.className = "bi bi-heart";
 											iconFavorite.style.color = "black";
 										//Si le statut HTTP est 200, on ajoute l'hackathon aux favoris
