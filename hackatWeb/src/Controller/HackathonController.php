@@ -72,19 +72,21 @@ class HackathonController extends AbstractController
     }
 
 
-    //======== Route pour voir les hackathons du participant connecté ========
+    //======== Route pour voir les hackathons du participant connecté, ainsi que ses favoris ========
     #[Route('/meshackathons/{idParticipant}', name: 'app_meshackathons')]
     public function meshackathons(ManagerRegistry $doctrine, Request $request, $idParticipant): Response
     {
-        $hackathonRepository = $doctrine->getRepository(Hackathon::class);
         $participantRepository = $doctrine->getRepository(Participant::class);
         $inscriptionRepository = $doctrine->getRepository(InscriptionHackathon::class);
+        $favoriRepository = $doctrine->getRepository(Favori::class);
 
         $leParticipant = $participantRepository->find($idParticipant);
 
+        //récupération des inscriptions et des favoris liés au participant
         $lesInscriptions = $inscriptionRepository->findBy(['leParticipant' => $leParticipant]);
+        $lesFavoris = $favoriRepository->findBy(['leParticipant' => $leParticipant]);
 
-        return $this->render('meshackathons/index.html.twig', ['lesInscriptions' => $lesInscriptions]);
+        return $this->render('meshackathons/index.html.twig', ['lesInscriptions' => $lesInscriptions, 'lesFavoris' => $lesFavoris]);
     }
 
 
