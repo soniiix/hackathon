@@ -9,15 +9,23 @@ const routes: Routes = [
     children: [
       {
         path: 'hackathons',
-        loadChildren: () => import('../hackatons/hackathons.module').then(m => m.HackathonsPageModule)
+        loadChildren: () => import('../hackathons/hackathons.module').then(m => m.HackathonsPageModule)
       },
       {
         path: 'details',
         loadChildren: () => import('../details/details.module').then(m => m.DetailsPageModule)
       },
       {
+        path: 'atelier',
+        loadChildren: () => import('../atelier/atelier.module').then(m => m.AtelierPageModule)
+      },
+      {
         path: 'inscription',
         loadChildren: () => import('../inscription/inscription.module').then(m => m.InscriptionPageModule)
+      },
+      {
+        path: 'commentaire',
+        loadChildren: () => import('../commentaire/commentaire.module').then(m => m.CommentairePageModule)
       },
       {
         path: '',

@@ -4,18 +4,18 @@ import { HttpClient } from '@angular/common/http';
 import { HackatServiceService } from '../hackat-service.service';
 
 @Component({
-  selector: 'app-inscription',
-  templateUrl: './inscription.page.html',
-  styleUrls: ['./inscription.page.scss'],
+  selector: 'app-commentaire',
+  templateUrl: './commentaire.page.html',
+  styleUrls: ['./commentaire.page.scss'],
 })
-export class InscriptionPage {
+export class CommentairePage {
 
   leAtelier:any;
-  nom:any = "";
-  prenom:any = "";
-  email:any = "";
+  nom:any;
+  email:any;
+  libelle:any;
   alertButtons = ['OK'];
-  
+
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(param=>{
       let navigation:any = this.router.getCurrentNavigation()?.extras.state;
@@ -23,14 +23,15 @@ export class InscriptionPage {
     })
   }
 
-  inscriptionSubmit(){
+  postCommentaire(){
     const nom = this.nom;
-    const prenom = this.prenom;
     const email = this.email;
+    const libelle = this.libelle;
     const idAtelier = this.leAtelier.id;
 
     //enregistrement des données
-    this.hackatService.postInscriptionAtelier(nom, prenom, email, idAtelier);
+    this.hackatService.postCommentaire(libelle, email, nom, idAtelier);
   }
+
 
 }

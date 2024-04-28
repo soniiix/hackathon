@@ -16,7 +16,7 @@ export class HackatServiceService {
 
   getHackathons(){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3004/hackathons";
+      var url = "http://192.168.51.98:3000/hackathons";
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });
@@ -25,7 +25,7 @@ export class HackatServiceService {
 
   getAteliersByIdHackathon(idHackathon:any){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3004/ateliers/"+ idHackathon;
+      var url = "http://192.168.51.98:3000/ateliers/"+ idHackathon;
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });
@@ -34,7 +34,7 @@ export class HackatServiceService {
 
   postInscriptionAtelier(nom:string, prenom:string, email:string, idAtelier:number){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3004/inscription-atelier";
+      var url = "http://192.168.51.98:3000/inscription-atelier";
       const body = { nom, prenom, email, idAtelier };
       this.http.post(url, body).subscribe((data) => {
         resolve(data);
@@ -42,12 +42,23 @@ export class HackatServiceService {
     })
   }
 
-  getInscriptionAtelier(){
+  getCommentairesByIdAtelier(idAtelier:any){
     return new Promise((resolve) => {
-      var url = "http://192.168.51.98:3004/inscription-atelier";
+      var url = "http://192.168.51.98:3000/commentaires/atelier/"+ idAtelier;
       this.http.get(url).subscribe((data) => {
         resolve(data);
       });
-    }) 
+    })
   }
+
+  postCommentaire(libelle:string, email:string, nom:string, idAtelier:number){
+    return new Promise((resolve) => {
+      var url = "http://192.168.51.98:3000/commentaire/post";
+      const body = { libelle, email, nom, idAtelier };
+      this.http.post(url, body).subscribe((data) => {
+        resolve(data);
+      });
+    })
+  }
+
 }

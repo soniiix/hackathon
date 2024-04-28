@@ -11,7 +11,7 @@
     <!-- liste des hackathons -->
     <ion-card>
       <ion-list>    
-        <ion-item *ngFor="let unHackathon of hackathons" (click)="detailHackathonClick(unHackathon)" detail="true">
+        <ion-item button *ngFor="let unHackathon of hackathons" (click)="detailHackathonClick(unHackathon)" detail="true">
           <ion-icon name="trail-sign-outline" slot="start"></ion-icon>
           <ion-label>
             <p>{{unHackathon.titre}}</p>

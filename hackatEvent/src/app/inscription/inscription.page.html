@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button default-href="tabs/details"></ion-back-button>
+      <ion-back-button default-href="tabs/atelier"></ion-back-button>
     </ion-buttons>
     <ion-title>{{leAtelier.libelle}}</ion-title>
   </ion-toolbar>
@@ -27,7 +27,7 @@
         <br>
         <ion-input label="Email" name="email" [(ngModel)]="email" type="email" label-placement="floating" fill="outline" placeholder="Entrer un email"></ion-input>
         <br>
-        <ion-button id="present-alert" type="submit">S'inscrire</ion-button>
+        <ion-button expand="block" id="present-alert" type="submit">S'inscrire</ion-button>
         <ion-alert trigger="present-alert" subHeader="Inscription réussie !" message="Vous êtes bien inscrit à cet atelier." [buttons]="alertButtons"></ion-alert>
       </form>
     </ion-card-content>

@@ -10,25 +10,39 @@
 <ion-content [fullscreen]="true">
 
   <ion-card>
+    <!-- titre et date du hackathon -->
     <ion-card-header>
       <ion-card-title>{{leHackathon.titre}}</ion-card-title>
       <ion-card-subtitle>📅 Du {{leHackathon.dateDebut | date: 'dd/MM/yyyy'}} au {{leHackathon.dateFin | date:
         'dd/MM/yyyy'}}</ion-card-subtitle>
     </ion-card-header>
 
+    <!-- détails du hackathon -->
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <strong>Adresse : </strong>
-          {{leHackathon.rue + ', ' + leHackathon.codePostal + ', ' + leHackathon.ville}}
+          <ion-label>
+            <strong>Adresse :</strong>
+            <ion-note class="ion-text-wrap">
+              {{leHackathon.rue + ', ' + leHackathon.codePostal + ', ' + leHackathon.ville}}
+            </ion-note>
+          </ion-label>
         </ion-item>
         <ion-item>
-          <strong>Date limite d'incription :</strong>
-          {{leHackathon.dateLimiteInscription | date: 'dd/MM/yyyy'}}
+          <ion-label>
+            <strong>Date limite d'incription :</strong>
+            <ion-note class="ion-text-wrap">
+              {{leHackathon.dateLimiteInscription | date: 'dd/MM/yyyy'}}
+              </ion-note>
+          </ion-label>
         </ion-item>
         <ion-item>
-          <strong>Nombre de places restantes :</strong>
-          {{leHackathon.nbPlacesMax}}(nbPlacesMax)
+          <ion-label>
+            <strong class="ion-text-wrap">Nombre de places restantes :</strong>
+            <ion-note class="ion-text-wrap">
+              {{leHackathon.nbPlacesMax}}
+            </ion-note>
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -42,40 +56,12 @@
     <ion-card-content>
       Retrouvez ici les ateliers liés à l'hackathon
 
-      <ion-list lines="none">
-        <ion-item *ngFor="let unAtelier of ateliers; let i=index">
+      <ion-list>
+        <ion-item button *ngFor="let unAtelier of ateliers" (click)="detailAtelier(unAtelier)" detail="true">
           <!-- titre de l'atelier -->
-          <strong>{{unAtelier.libelle}}&nbsp;</strong>
-
-          <ion-button id="open-custom-dialog{{i}}">Voir</ion-button>
-
-          <ion-modal id="ateliers-modal" #modal trigger="open-custom-dialog{{i}}">
-            <ng-template>
-              <div class="wrapper">
-                <ion-toolbar>
-                  <ion-buttons slot="end" (click)="modal.dismiss()">
-                    <ion-button><ion-icon name="close-circle-outline" slot="end"></ion-icon></ion-button>
-                  </ion-buttons>
-                  <ion-title>Détails</ion-title>
-                </ion-toolbar>
-                <ion-list lines="none" id="details-atelier">
-                  <ion-item detail="false">
-                    <ion-icon name="calendar-outline" slot="start"></ion-icon>
-                    <ion-label>Date :&nbsp;{{unAtelier.date | date: 'dd/MM/yyyy'}}</ion-label>
-                  </ion-item>
-                  <ion-item detail="false">
-                    <ion-icon name="location-outline"></ion-icon>
-                    <ion-label>Salle :&nbsp; {{unAtelier.salle}}</ion-label>
-                  </ion-item>
-                  <ion-button (click)="modal.dismiss()" (click)="inscriptionClick(unAtelier)" id="btn-inscription">S'inscrire</ion-button>
-                  <ion-button (click)="modal.dismiss()" (click)="addToFavorites(unAtelier)" id="btn-favori">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </ion-button>
-                </ion-list>
-              </div>
-            </ng-template>
-          </ion-modal>
-
+          <ion-label class="ion-text-wrap">
+            {{unAtelier.libelle}}
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>

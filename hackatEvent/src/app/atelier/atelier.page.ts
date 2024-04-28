@@ -4,42 +4,48 @@ import { HttpClient } from '@angular/common/http';
 import { HackatServiceService } from '../hackat-service.service';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: 'details.page.html',
-  styleUrls: ['details.page.scss']
+  selector: 'app-atelier',
+  templateUrl: './atelier.page.html',
+  styleUrls: ['./atelier.page.scss'],
 })
-export class DetailsPage {
-  leHackathon:any;
-  ateliers:any;
-  unAtelier:any
-  
+export class AtelierPage {
+
+  leAtelier:any;
+  lesCommentaires:any;
+
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(param=>{
       let navigation:any = this.router.getCurrentNavigation()?.extras.state;
-      this.leHackathon = navigation.item;
-      
-      this.hackatService.getAteliersByIdHackathon(this.leHackathon.id).then(results => { 
-        this.ateliers=results;
+      this.leAtelier = navigation.item;
+
+      this.hackatService.getCommentairesByIdAtelier(this.leAtelier.id).then(results => { 
+        this.lesCommentaires=results;
       });
     })
   }
 
-  inscriptionClick(unAtelier:any){
+
+  inscriptionClick(leAtelier:any){
     let navigationExtras: NavigationExtras = {
       state : {
-        item: unAtelier
+        item: leAtelier
       }
       };
     this.router.navigate(['/tabs/inscription'], navigationExtras)
   }
 
-  detailAtelier(unAtelier:any){
+  addToFavorites(leAtelier:any){
+    //...
+  }
+
+  commenter(leAtelier:any){
     let navigationExtras: NavigationExtras = {
       state : {
-        item: unAtelier
+        item: leAtelier
       }
       };
-    this.router.navigate(['/tabs/atelier'], navigationExtras)
+    this.router.navigate(['/tabs/commentaire'], navigationExtras)
   }
+
 
 }
