@@ -15,12 +15,13 @@ export class HackathonsPage {
 
   constructor(public http : HttpClient, public hackatService : HackatServiceService, private router:Router)
   {
+    //récupération des hackathons de la BDD
     this.hackatService.getHackathons().then(results => { 
       this.hackathons = results;
     });
   }
 
-
+  //fonction qui redirige vers les détails d'un hackathon après avoir cliqué dessus
   detailHackathonClick(unHackathon:any){
     let navigationExtras: NavigationExtras = {
       state : {

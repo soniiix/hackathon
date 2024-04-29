@@ -17,12 +17,14 @@ export class InscriptionPage {
   alertButtons = ['OK'];
   
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
+    //récupération de l'atelier sur lequel on a cliqué sur la page précédente
     this.activeRoute.queryParams.subscribe(param=>{
       let navigation:any = this.router.getCurrentNavigation()?.extras.state;
       this.leAtelier = navigation.item;
     })
   }
 
+  //fonction qui soumet le formulaire d'inscription
   inscriptionSubmit(){
     const nom = this.nom;
     const prenom = this.prenom;

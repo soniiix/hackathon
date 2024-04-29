@@ -27,9 +27,14 @@
           <ion-label>Salle :&nbsp; {{leAtelier.salle}}</ion-label>
         </ion-item>
         <ion-button id="btn-inscription" expand="block" (click)="inscriptionClick(leAtelier)">S'inscrire</ion-button>
-        <ion-button fill="outline" expand="block" (click)="addToFavorites(leAtelier)">
+        <!-- si l'atelier est déjà en favori, affichage du bouton de favori correspondant -->
+        <ion-button *ngIf="isFavorite(leAtelier) == false" fill="clear" expand="block" (click)="addToFavorites(leAtelier)">
           <ion-icon name="heart-outline" slot="end"></ion-icon>
-          Favori
+          Ajouter en Favori
+        </ion-button>
+        <ion-button *ngIf="isFavorite(leAtelier)" fill="outline" expand="block" (click)="removeFromFavorites(leAtelier.id)">
+          <ion-icon name="heart-outline" slot="end"></ion-icon>
+          Retirer des favoris
         </ion-button>
       </ion-list>
     </ion-card-content>
@@ -39,8 +44,9 @@
     <ion-card-header>
       <ion-card-title>Commentaires</ion-card-title>
     </ion-card-header>
-
+    <!-- affichage des commentaires sur l'atelier -->
     <ion-card-content>
+      <p *ngIf="lesCommentaires.length === 0">Aucun commentaire pour le moment.</p>
       <ion-list lines="full">
         <ion-item *ngFor="let unCommentaire of lesCommentaires">
           <ion-avatar slot="start">

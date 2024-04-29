@@ -15,14 +15,17 @@ export class CommentairePage {
   email:any;
   libelle:any;
   alertButtons = ['OK'];
+  
 
   constructor(private router: Router, public hackatService : HackatServiceService, private activeRoute: ActivatedRoute) {
+    //récupération de l'atelier correspondant à la page précédente
     this.activeRoute.queryParams.subscribe(param=>{
       let navigation:any = this.router.getCurrentNavigation()?.extras.state;
       this.leAtelier = navigation.item;
     })
   }
 
+  //fonction qui soumet le formulaire et donc le commentaire
   postCommentaire(){
     const nom = this.nom;
     const email = this.email;

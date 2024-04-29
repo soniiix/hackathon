@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../commentaire/commentaire.module').then(m => m.CommentairePageModule)
       },
       {
+        path: 'favoris',
+        loadChildren: () => import('../favoris/favoris.module').then(m => m.FavorisPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/hackathons',
         pathMatch: 'full'
