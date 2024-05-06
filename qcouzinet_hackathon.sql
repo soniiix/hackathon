@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 22 déc. 2023 à 12:52
--- Version du serveur : 10.11.4-MariaDB-1~deb12u1
--- Version de PHP : 8.2.7
+-- Généré le : lun. 06 mai 2024 à 09:17
+-- Version du serveur : 10.11.6-MariaDB-0+deb12u1
+-- Version de PHP : 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `qcouzinet_hackathon`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commentaire`
+--
+
+CREATE TABLE `commentaire` (
+  `id` int(32) NOT NULL,
+  `libelle` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `idAtelier` int(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `commentaire`
+--
+
+INSERT INTO `commentaire` (`id`, `libelle`, `email`, `nom`, `idAtelier`) VALUES
+(1, 'superbe atelier, je recommande !', 'test@gmail.com', 'Marc', 1),
+(2, 'pas mal, mais trop long', 'test2@gmail.com', 'Julien', 1);
 
 -- --------------------------------------------------------
 
@@ -39,7 +61,9 @@ CREATE TABLE `doctrine_migration_versions` (
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20231128155510', '2023-11-28 15:57:19', 96),
-('DoctrineMigrations\\Version20231205154007', '2023-12-05 15:50:16', 12);
+('DoctrineMigrations\\Version20231205154007', '2023-12-05 15:50:16', 12),
+('DoctrineMigrations\\Version20240329094522', '2024-03-29 09:48:11', 26),
+('DoctrineMigrations\\Version20240329095106', '2024-03-29 09:52:50', 42);
 
 -- --------------------------------------------------------
 
@@ -57,19 +81,42 @@ CREATE TABLE `evenement` (
   `type` varchar(255) NOT NULL,
   `nbParticipants` int(11) DEFAULT NULL,
   `theme` varchar(255) DEFAULT NULL,
-  `idIntervenant` int(11) DEFAULT NULL
+  `idIntervenant` int(11) DEFAULT NULL,
+  `idHackathon` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `evenement`
 --
 
-INSERT INTO `evenement` (`id`, `libelle`, `date`, `heure`, `duree`, `salle`, `type`, `nbParticipants`, `theme`, `idIntervenant`) VALUES
-(1, 'Atelier sur le leadership', '2023-12-08', '16:44:00', '2', 'B009', 'atelier', 25, NULL, NULL),
-(2, 'Blockchain : Applications et implications futures', '2023-12-08', '14:47:00', '4', 'G934', 'conference', NULL, 'Cryptomonnaies', 2),
-(3, 'Sécurité informatique : Pratiques avancées', '2023-12-16', '15:57:00', '2', 'C890', 'atelier', 33, NULL, NULL),
-(4, 'Conférence sur l\'IA', '2023-12-08', '14:08:00', '2', 'M260', 'conference', NULL, 'Intelligence artificielle', 3),
-(5, 'Atelier de design thinking pour les développeurs', '2023-12-20', '14:03:00', '3', 'E802', 'atelier', 10, NULL, NULL);
+INSERT INTO `evenement` (`id`, `libelle`, `date`, `heure`, `duree`, `salle`, `type`, `nbParticipants`, `theme`, `idIntervenant`, `idHackathon`) VALUES
+(1, 'Atelier sur le leadership', '2023-12-08', '16:44:00', '2', 'B009', 'atelier', 25, NULL, NULL, 1),
+(2, 'Blockchain : Applications et implications futures', '2023-12-08', '14:47:00', '4', 'G934', 'conference', NULL, 'Cryptomonnaies', 2, 2),
+(3, 'Sécurité informatique : Pratiques avancées', '2023-12-16', '15:57:00', '2', 'C890', 'atelier', 33, NULL, NULL, 1),
+(4, 'Conférence sur l\'IA', '2023-12-08', '14:08:00', '2', 'M260', 'conference', NULL, 'Intelligence artificielle', 3, 3),
+(5, 'Atelier de design thinking pour les développeurs', '2023-12-20', '14:03:00', '3', 'E802', 'atelier', 10, NULL, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `favori`
+--
+
+CREATE TABLE `favori` (
+  `id` int(11) NOT NULL,
+  `idParticipant` int(11) NOT NULL,
+  `idHackathon` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `favori`
+--
+
+INSERT INTO `favori` (`id`, `idParticipant`, `idHackathon`) VALUES
+(121, 4, 4),
+(130, 1, 7),
+(131, 1, 5),
+(132, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -96,43 +143,17 @@ CREATE TABLE `hackathon` (
 --
 
 INSERT INTO `hackathon` (`id`, `nbPlacesMax`, `dateLimiteInscription`, `titre`, `ville`, `codePostal`, `rue`, `dateDebut`, `dateFin`, `heureDebut`, `heureFin`) VALUES
-(1, 50, '2023-11-30 00:00:00', 'ByteBurst Challenge : Explosez les octets, créez le futur', 'Marseille', 13000, '3 Impasse Fedeli', '2023-12-01', '2023-12-03', '09:00:00', '17:00:00'),
+(1, 0, '2024-11-30 00:00:00', 'ByteBurst Challenge : Explosez les octets, créez le futur', 'Marseille', 13000, '3 Impasse Fedeli', '2024-12-01', '2024-12-03', '09:00:00', '17:00:00'),
 (2, 30, '2023-11-25 00:00:00', 'InnoHacks : Révolutionnez l\'innovation', 'Paris', 75002, '18 Passage du Grand-Cerf', '2023-12-05', '2023-12-07', '10:00:00', '18:00:00'),
 (3, 40, '2023-12-10 00:00:00', 'FutureFusion : Fusionnez les idées, forgez le futur du tech', 'Reims', 51454, '4 Rue Aimee Wilbert', '2023-12-15', '2023-12-17', '11:00:00', '19:00:00'),
-(4, 20, '2023-12-05 00:00:00', 'CodeXplosion : Développez l\'avenir du code', 'Le Mans', 72000, '42 Rue du 11 Novembre', '2023-12-08', '2023-12-10', '13:00:00', '21:00:00'),
-(5, 60, '2023-12-20 00:00:00', 'QuantumQuest : Explorez les frontières de la programmation quantique', 'Lyon', 69000, '75 Rue Louis Dansard', '2023-12-25', '2023-12-27', '14:00:00', '22:00:00'),
+(4, 20, '2025-01-01 00:00:00', 'CodeXplosion : Développez l\'avenir du code', 'Le Mans', 72000, '42 Rue du 11 Novembre', '2025-01-02', '2025-01-03', '13:00:00', '21:00:00'),
+(5, 60, '2024-12-20 00:00:00', 'QuantumQuest : Explorez les frontières de la programmation quantique', 'Lyon', 69000, '75 Rue Louis Dansard', '2024-12-25', '2024-12-27', '14:00:00', '22:00:00'),
 (6, 25, '2023-12-15 00:00:00', 'CyberForge : Forgez la sécurité numérique de demain', 'Les Sables d\'Olonne', 85100, '69 Rue de l\'Enfer', '2023-12-18', '2023-12-20', '15:00:00', '23:00:00'),
 (7, 35, '2023-12-01 00:00:00', 'DataDive : Plongez dans le monde des données', 'La Roche surYon', 85000, '19 Boulevard Branly', '2023-12-05', '2023-12-07', '16:00:00', '00:00:00'),
 (8, 45, '2023-12-08 00:00:00', 'CodeCrafters Challenge : Sculptez votre code, modelez l\'avenir', 'Angers', 49000, '23 Rue Robert Bryan', '2023-12-10', '2023-12-12', '17:00:00', '01:00:00'),
 (9, 55, '2023-12-18 00:00:00', 'TechTitans Hack : Affrontez les titans de la technologie', 'Nantes', 44000, '10 Allée Gutenberg', '2023-12-22', '2023-12-24', '18:00:00', '02:00:00'),
-(10, 15, '2023-12-12 00:00:00', 'RoboRush : Construisez des bots, dominez l\'arène', 'Bordeaux', 42086, '86 Passage Patrick Henriette', '2023-12-15', '2023-12-17', '19:00:00', '03:00:00');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `hackathon_evenement`
---
-
-CREATE TABLE `hackathon_evenement` (
-  `hackathon_id` int(11) NOT NULL,
-  `evenement_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `hackathon_evenement`
---
-
-INSERT INTO `hackathon_evenement` (`hackathon_id`, `evenement_id`) VALUES
-(1, 5),
-(2, 3),
-(3, 1),
-(4, 1),
-(5, 5),
-(6, 3),
-(7, 3),
-(8, 5),
-(9, 2),
-(10, 4);
+(10, 15, '2023-12-12 00:00:00', 'RoboRush : Construisez des bots, dominez l\'arène', 'Bordeaux', 42086, '86 Passage Patrick Henriette', '2023-12-15', '2023-12-17', '19:00:00', '03:00:00'),
+(11, 30, '2024-06-06 09:11:39', 'Défi CodePen', 'La Roche sur Yon', 85000, '19 La Fayette', '2024-06-20', '2024-06-22', '08:00:00', '17:00:00');
 
 -- --------------------------------------------------------
 
@@ -162,7 +183,8 @@ INSERT INTO `inscription_atelier` (`id`, `nom`, `prenom`, `mail`, `idAtelier`) V
 (7, 'Bogie', 'Una', 'ubogie6@gizmodo.com', 4),
 (8, 'Immins', 'Thelma', 'timmins7@networksolutions.com', 4),
 (9, 'Skaife', 'Marius', 'mskaife8@chronoengine.com', 5),
-(10, 'Garbert', 'Gerard', 'ggarbert9@msn.com', 5);
+(10, 'Garbert', 'Gerard', 'ggarbert9@msn.com', 5),
+(15, 'greg', 'Greg', 'ouaiscgreg@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +208,10 @@ INSERT INTO `inscription_hackathon` (`id`, `date`, `idParticipant`, `idHackathon
 (2, '2023-11-30', 20, 3),
 (3, '2023-11-01', 8, 7),
 (4, '2023-11-23', 22, 5),
-(5, '2023-12-11', 6, 10);
+(5, '2023-12-11', 6, 10),
+(15, '2024-03-22', 1, 4),
+(16, '2024-03-22', 1, 5),
+(17, '2024-05-06', 1, 11);
 
 -- --------------------------------------------------------
 
@@ -261,11 +286,19 @@ INSERT INTO `participant` (`id`, `nom`, `prenom`, `mail`, `tel`, `dateNaissance`
 (21, 'Schiersch', 'Aleda', 'aschierschk@berkeley.edu', 114723746, '2003-10-06', 'https://tmall.com/sed/vel/enim.aspx?in=ipsum&faucibus=integer&orci=a&luctus=nibh&et=in', '$2y$10$WLtqZ9sL8gSouiPlq2BXTeQF0DfCN7zBF7fBukyhseOYPn2vufkOK', ''),
 (22, 'Sawdy', 'Bernarr', 'bsawdyl@biglobe.ne.jp', 705501307, '1997-07-22', 'http://rediff.com/nulla/elit/ac/nulla/sed/vel/enim.xml?justo=ut&eu=erat&massa=id&donec=mauris&dapibus=vulputate&duis=elementum&a', '$2y$10$zh0lL9i.z4ncSzdeqAc28eEMCwx7Iv5dHmLT8yIhO.AS1YtDkpT.O', ''),
 (28, 'Chadd', 'Monti', 'mchaddr@shinystat.com', 395458013, '1998-04-14', 'https://mozilla.org/ipsum/dolor/sit/amet/consectetuer/adipiscing.html?consequat=nisl&varius=nunc&integer=nisl&ac=duis&leo=bibend', '$2y$10$u4fw12dqWdLWaLOY2auvMun.81dBOyAB61U4EYHVVRqk1aTURgXei', ''),
-(29, 'Sykora', 'Fleurette', 'fsykoras@ameblo.jp', 755808733, '1992-03-26', 'https://ow.ly/ante/vivamus/tortor/duis/mattis/egestas.html?vitae=in&ipsum=imperdiet&aliquam=et&non=commodo&mauris=vulputate&morb', '$2y$10$vGxbDUEkihmPMGS1EUU0ruFiJwAc.44Btvu9SDdXILwdjzui/8fAK', '');
+(29, 'Sykora', 'Fleurette', 'fsykoras@ameblo.jp', 755808733, '1992-03-26', 'https://ow.ly/ante/vivamus/tortor/duis/mattis/egestas.html?vitae=in&ipsum=imperdiet&aliquam=et&non=commodo&mauris=vulputate&morb', '$2y$10$vGxbDUEkihmPMGS1EUU0ruFiJwAc.44Btvu9SDdXILwdjzui/8fAK', ''),
+(52, 'greh', 'hreh', 'rheh@geg.com', 102030405, '1904-01-01', 'https://dfgrze.com', '$2y$10$QkUQhtul4ZbG4VMXx/8nieGx4DOBVoklQIZ9yrqwie9OinhLM4uGm', '[]');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_atelier_commentaire` (`idAtelier`);
 
 --
 -- Index pour la table `doctrine_migration_versions`
@@ -278,21 +311,22 @@ ALTER TABLE `doctrine_migration_versions`
 --
 ALTER TABLE `evenement`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_evenement_intervenant` (`idIntervenant`);
+  ADD KEY `fk_evenement_intervenant` (`idIntervenant`),
+  ADD KEY `fk_evenement_hackathon` (`idHackathon`);
+
+--
+-- Index pour la table `favori`
+--
+ALTER TABLE `favori`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_EF85A2CC97C29469` (`idParticipant`),
+  ADD KEY `IDX_EF85A2CC77D0DD19` (`idHackathon`);
 
 --
 -- Index pour la table `hackathon`
 --
 ALTER TABLE `hackathon`
   ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `hackathon_evenement`
---
-ALTER TABLE `hackathon_evenement`
-  ADD PRIMARY KEY (`hackathon_id`,`evenement_id`),
-  ADD KEY `IDX_52FBDE83996D90CF` (`hackathon_id`),
-  ADD KEY `IDX_52FBDE83FD02F13` (`evenement_id`);
 
 --
 -- Index pour la table `inscription_atelier`
@@ -328,11 +362,18 @@ ALTER TABLE `messenger_messages`
 -- Index pour la table `participant`
 --
 ALTER TABLE `participant`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_D79F6B115126AC48` (`mail`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `evenement`
@@ -341,22 +382,28 @@ ALTER TABLE `evenement`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT pour la table `favori`
+--
+ALTER TABLE `favori`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+
+--
 -- AUTO_INCREMENT pour la table `hackathon`
 --
 ALTER TABLE `hackathon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `inscription_atelier`
 --
 ALTER TABLE `inscription_atelier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT pour la table `inscription_hackathon`
 --
 ALTER TABLE `inscription_hackathon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `intervenant`
@@ -374,24 +421,31 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT pour la table `participant`
 --
 ALTER TABLE `participant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
+-- Contraintes pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD CONSTRAINT `fk_atelier_commentaire` FOREIGN KEY (`idAtelier`) REFERENCES `evenement` (`id`);
+
+--
 -- Contraintes pour la table `evenement`
 --
 ALTER TABLE `evenement`
+  ADD CONSTRAINT `fk_evenement_hackathon` FOREIGN KEY (`idHackathon`) REFERENCES `hackathon` (`id`),
   ADD CONSTRAINT `fk_evenement_intervenant` FOREIGN KEY (`idIntervenant`) REFERENCES `intervenant` (`id`);
 
 --
--- Contraintes pour la table `hackathon_evenement`
+-- Contraintes pour la table `favori`
 --
-ALTER TABLE `hackathon_evenement`
-  ADD CONSTRAINT `FK_52FBDE83996D90CF` FOREIGN KEY (`hackathon_id`) REFERENCES `hackathon` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_52FBDE83FD02F13` FOREIGN KEY (`evenement_id`) REFERENCES `evenement` (`id`) ON DELETE CASCADE;
+ALTER TABLE `favori`
+  ADD CONSTRAINT `FK_EF85A2CC77D0DD19` FOREIGN KEY (`idHackathon`) REFERENCES `hackathon` (`id`),
+  ADD CONSTRAINT `FK_EF85A2CC97C29469` FOREIGN KEY (`idParticipant`) REFERENCES `participant` (`id`);
 
 --
 -- Contraintes pour la table `inscription_atelier`
